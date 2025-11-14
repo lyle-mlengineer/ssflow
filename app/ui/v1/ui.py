@@ -20,3 +20,27 @@ async def get_landing_page(request: Request):
             "request": request,
         }
     )
+    
+@router.get('/text_to_speech', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+async def get_text_to_speech_page(request: Request):
+    """Load the text to speech page"""
+    return templates.TemplateResponse(
+        "_base.html", 
+        {
+            "request": request,
+            "title": "SautiFlow TTS",
+            "current_page": "tts"
+        }
+    )
+    
+@router.get('/speech_to_text', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+async def get_speech_to_text_page(request: Request):
+    """Load the speech to text page"""
+    return templates.TemplateResponse(
+        "_base.html", 
+        {
+            "request": request,
+            "title": "SautiFlow STT",
+            "current_page": "stt"
+        }
+    )
