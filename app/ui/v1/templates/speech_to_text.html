@@ -1,0 +1,76 @@
+{%extends "_base.html" %} 
+
+    {% block styles %}
+        {{ super() }} {# This includes the CSS from the parent's 'styles' block #}
+        <link rel="stylesheet" href="{{ url_for('static', path='css/speech_to_text.css') }}">
+    {% endblock %}
+
+{%block content%}
+
+    <div class="gen-container">
+
+        <header class="header__gen">
+
+            <div class="logo-wrapper">
+                <div class="gen__logo">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <h1>AI Speech Transcriber</h1>
+            </div>
+
+            <button class="theme-toggle">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+        </header>
+
+        <div class="main-content">
+
+           <form action="#" class="prompt-form">
+
+               <!--Results-->
+               <div class="audio-output">
+                  <audio src="audio/audio.mp3" controls></audio>
+                  <a href="#" class="change-audio-btn" change-audio>
+                     <button><i class="fa-solid fa-dice"></i> Change Audio</button>
+                     </a>
+               </div>   
+               
+               <!--Prompt actions-->
+               <div class="prompt-actions">
+
+                  <div class="select-wrapper">
+                     <select name="" id="" class="custom-select" required>
+                        <option value="" selected disabled>Language</option>
+                        <option value="swahili">Swahili</option>
+                        <option value="english">English</option>
+                        <option value="sheng">Sheng'</option>
+                        <option value="luo">Luo</option>
+                     </select>
+                  </div>
+
+                  <button class="generate-btn" type="submit">
+                     <i class="fa-solid fa-wand-sparkles"></i>
+                     Transcribe
+                  </button>
+
+               </div>
+
+               <!--Prompt container-->
+               <div class="prompt-container">
+                  <textarea placeholder="Type in your script..." name="" id="" class="prompt-input" disabled
+                     ></textarea>
+
+                  <button class="prompt-btn" type="button">
+                     <i class="fa-solid fa-dice"></i>
+                  </button>
+               </div>
+
+            </form>
+
+        </div>
+
+    
+    </div>
+
+{% endblock %}

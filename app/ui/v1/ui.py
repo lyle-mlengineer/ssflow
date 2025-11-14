@@ -37,7 +37,7 @@ async def get_text_to_speech_page(request: Request):
 async def get_speech_to_text_page(request: Request):
     """Load the speech to text page"""
     return templates.TemplateResponse(
-        "_base.html", 
+        "speech_to_text.html", 
         {
             "request": request,
             "title": "SautiFlow STT",
