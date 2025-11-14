@@ -25,7 +25,7 @@ async def get_landing_page(request: Request):
 async def get_text_to_speech_page(request: Request):
     """Load the text to speech page"""
     return templates.TemplateResponse(
-        "_base.html", 
+        "text_to_speech.html", 
         {
             "request": request,
             "title": "SautiFlow TTS",
