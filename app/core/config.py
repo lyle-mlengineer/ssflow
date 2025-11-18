@@ -10,6 +10,8 @@ class Config(BaseSettings):
 
     TEMPLATES_DIR: str = "app/ui/v1/templates"
     STATIC_DIR: str = "app/ui/v1/static"
+    
+    AUDIO_OUTPUT_DIR: str = "app/api/v1/audio_output"
 
 
 config = Config()

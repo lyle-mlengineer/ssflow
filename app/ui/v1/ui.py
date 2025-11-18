@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from app.core.config import config
+from app.services.utils import get_audio_service, AudioService
 
 
 templates = Jinja2Templates(directory=config.TEMPLATES_DIR)
@@ -24,12 +25,31 @@ async def get_landing_page(request: Request):
 @router.get('/text_to_speech', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 async def get_text_to_speech_page(request: Request):
     """Load the text to speech page"""
+    service: AudioService = get_audio_service()
+    languages = service.get_supported_languages()
+    default_language = languages[0] if languages else "en-us"   
+    default_voices = service.get_supported_voices(default_language, "female")
     return templates.TemplateResponse(
         "text_to_speech.html", 
         {
             "request": request,
             "title": "SautiFlow TTS",
-            "current_page": "tts"
+            "current_page": "tts",
+            "languages": languages,
+            "default_language": default_language,
+            "default_voices": default_voices
+        }
+    )
+    
+@router.get('/pick_audio', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+async def pick_audio(request: Request):
+    """Load the speech to text page"""
+    return templates.TemplateResponse(
+        "audio_picker.html", 
+        {
+            "request": request,
+            "title": "SautiFlow STT",
+            "current_page": "stt"
         }
     )
     

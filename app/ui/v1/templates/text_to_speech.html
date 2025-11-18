@@ -26,11 +26,11 @@
 
         <div class="main-content">
 
-            <form action="#" class="prompt-form">
+            <form action="/api/v1/audio/generate_speech" class="prompt-form" id="text-to-speech-form" method="POST">
 
                <!--Prompt container-->
                <div class="prompt-container">
-                  <textarea placeholder="Type in your script..." name="" id="" class="prompt-input" required
+                  <textarea placeholder="Type in your script..." name="text" id="text" class="prompt-input" required
                      autofocus></textarea>
 
                   <button class="prompt-btn" type="button">
@@ -42,28 +42,28 @@
                <div class="prompt-actions">
 
                   <div class="select-wrapper">
-                     <select name="" id="" class="custom-select" required>
-                        <option value="" selected disabled>Language</option>
-                        <option value="swahili">Swahili</option>
-                        <option value="english">English</option>
-                        <option value="sheng">Sheng'</option>
-                        <option value="luo">Luo</option>
+                     <select name="language" id="language" class="custom-select" required>
+                        <!--option value="" selected disabled>Language</option-->
+                        {% for language in languages %}
+                        {<option value="{{ language }}">{{ language }}</option>}
+                        {% endfor %}
                      </select>
                   </div>
 
                   <div class="select-wrapper">
-                     <select name="" id="" class="custom-select" required>
-                        <option value="" selected disabled>Gender</option>
-                        <option value="male">Male</option>
+                     <select name="gender" id="gender" class="custom-select" required>
+                        <!--option value="" selected disabled>Gender</option-->
                         <option value="female">Female</option>
+                        <option value="male">Male</option>
                      </select>
                   </div>
 
                   <div class="select-wrapper">
-                     <select name="" id="" class="custom-select" required>
-                        <option value="" selected disabled>Voice</option>
-                        <option value="lyle">Lyle</option>
-                        <option value="mary">Mary</option>
+                     <select name="voice" id="voice" class="custom-select" required>
+                        <!--option value="" selected disabled>Voice</option-->
+                        {% for voice in default_voices %}
+                        {<option value="{{ voice }}">{{ voice }}</option>}
+                        {% endfor %}
                      </select>
                   </div>
 
@@ -74,9 +74,14 @@
 
                </div>
 
+               <!--Loading-->
+               <div class="loader">
+                  <div class="orbit-loading-ring hidden"></div>
+               </div>
+
                <!--Results-->
                <div class="audio-output">
-                  <audio src="audio/audio.mp3" controls></audio>
+                  <audio src="audio/audio.mp3" controls></audio> 
                </div>
 
             </form>
@@ -86,4 +91,9 @@
     
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }} {# This includes the JS from the parent's 'scripts' block #}
+    <script src="{{ url_for('static', path='js/text_to_speech.js') }}"></script>
 {% endblock %}
