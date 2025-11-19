@@ -64,3 +64,15 @@ async def get_speech_to_text_page(request: Request):
             "current_page": "stt"
         }
     )
+
+@router.get('/dashboard', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+async def get_dashboard_page(request: Request):
+    """Load the dashboard page"""
+    return templates.TemplateResponse(
+        "dashboard.html", 
+        {
+            "request": request,
+            "title": "SautiFlow Dashboard",
+            "current_page": "dashboard"
+        }
+    )

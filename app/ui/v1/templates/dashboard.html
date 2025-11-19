@@ -1,0 +1,101 @@
+{%extends "_base.html" %} 
+
+{% block styles %}
+    {{ super() }} {# This includes the CSS from the parent's 'styles' block #}
+    <link rel="stylesheet" href="{{ url_for('static', path='css/dashboard.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+{% endblock %}
+
+{%block content%}
+
+<div class="gen-container">
+
+    <!-- Insights -->
+    <ul class="insights">
+        <li>
+            <i class='bx bx-calendar-check'></i>
+            <span class="info">
+                <h3>
+                    1,074
+                </h3>
+                <p>All Tasks</p>
+            </span>
+        </li>
+        <li><i class='bx bx-show-alt'></i>
+            <span class="info">
+                <h3>
+                    3,944
+                </h3>
+                <p>Ongoing Taks</p>
+            </span>
+        </li>
+        <li><i class='bx bx-line-chart'></i>
+            <span class="info">
+                <h3>
+                    14,721
+                </h3>
+                <p>Done Tasks</p> 
+            </span>
+        </li>
+        <li><i class='bx bx-dollar-circle'></i>
+            <span class="info">
+                <h3>
+                    $6,742
+                </h3>
+                <p>Failed Tasks</p>
+            </span>
+        </li>
+    </ul>
+    <!-- End of Insights -->
+
+    <div class="bottom-data">
+
+        <div class="orders">
+            <div class="dash-header">
+                <i class='bx bx-receipt'></i>
+                <h3>Recent Orders</h3>
+                <i class='bx bx-filter'></i>
+                <i class='bx bx-search'></i>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="{{ url_for('static', path='img/perfil.png') }}">
+                            <p>John Doe</p>
+                        </td>
+                        <td>14-08-2023</td>
+                        <td><span class="status completed">Completed</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="{{ url_for('static', path='img/perfil.png') }}">
+                            <p>John Doe</p>
+                        </td>
+                        <td>14-08-2023</td>
+                        <td><span class="status pending">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="{{ url_for('static', path='img/perfil.png') }}">
+                            <p>John Doe</p>
+                        </td>
+                        <td>14-08-2023</td>
+                        <td><span class="status process">Processing</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
