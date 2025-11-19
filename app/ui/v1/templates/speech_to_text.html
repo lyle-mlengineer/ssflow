@@ -26,10 +26,11 @@
 
         <div class="main-content">
 
-           <form action="#" class="prompt-form">
+           <form action="/api/v1/audio/transcribe_speech" method="post" class="prompt-form" id="transcription">
 
                <!--Results-->
                <div class="audio-output">
+                    <input type="text" name="audio" id="audio" class="audio-url" value="{{ audio_url }}" hidden>
                   <audio src="{{ audio_url }}" controls></audio>
                   <a href="#" class="change-audio-btn" change-audio>
                      <button type="button" class="change-audio"><i class="fa-solid fa-dice"></i> Change Audio</button>
@@ -40,7 +41,7 @@
                <div class="prompt-actions">
 
                   <div class="select-wrapper">
-                     <select name="" id="" class="custom-select">
+                     <select name="language" id="language" class="custom-select">
 
                         <option value="swahili">Swahili</option>
                         <option value="english">English</option>
@@ -56,9 +57,14 @@
 
                </div>
 
+                <!--Loading-->
+               <div class="loader">
+                  <div class="orbit-loading-ring hidden"></div>
+               </div>              
+
                <!--Prompt container-->
-               <div class="prompt-container">
-                  <textarea placeholder="Type in your script..." name="" id="" class="prompt-input" disabled
+               <div class="prompt-container" id="prompt-container">
+                  <textarea placeholder="Type in your script..." name="" id="text-output" class="prompt-input" disabled
                      ></textarea>
 
                   <button class="prompt-btn" type="button">
@@ -73,7 +79,7 @@
     
     </div>
 
-{% endblock %}
+{% endblock %} 
 
 {% block scripts %}
     {{ super() }} {# This includes the JS from the parent's 'scripts' block #}

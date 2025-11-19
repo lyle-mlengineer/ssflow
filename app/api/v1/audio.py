@@ -2,6 +2,12 @@ from fastapi import APIRouter, status, Depends, Form, Request, File, UploadFile
 from app.services.utils import get_audio_service, AudioService
 from typing import Annotated
 from fastapi.responses import RedirectResponse
+from pydantic import BaseModel
+
+
+class SpeechTranscriptionRequest(BaseModel):
+    language: str
+    audio: str
 
 
 router = APIRouter(
@@ -22,15 +28,18 @@ async def generate_speech(
     return {
         "audio_url": audio_url
     }
-    
-@router.post('/upload_audio')
-async def upload_audio(
-    file: UploadFile = File(...),
+
+@router.post('/transcribe_speech', status_code=status.HTTP_201_CREATED)
+async def transcribe_speech(
+    request: Request,
+    speech_request: SpeechTranscriptionRequest,
     service: AudioService = Depends(get_audio_service)
 ):
-    result = service.save_uploaded_file(file)
-    audio_id: str = "GCsmZA08oD8"  # Placeholder for uploaded audio ID
-    return RedirectResponse(url='/speech_to_text?audio_id=' + audio_id, status_code=status.HTTP_303_SEE_OTHER) 
+    import time
+    time.sleep(2)  # Simulate processing delay
+    return {
+        "transcription": "This is a sample transcription of the provided audio."
+    }
 
 
 @router.get('/languages')
