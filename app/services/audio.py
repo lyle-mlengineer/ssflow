@@ -1,6 +1,8 @@
 from typing import LiteralString
 import os
 from app.core.config import config
+from fastapi import UploadFile, File
+import shutil
 
 
 class AudioService:
@@ -35,3 +37,16 @@ class AudioService:
             }
         }
         return voices.get(language, {}).get(gender, [])
+    
+    def save_uploaded_file(self, upload_file: UploadFile) -> dict:
+        """Save an uploaded file to the specified destination."""
+        try:
+            # Save the uploaded file
+            file_path = os.path.join(config.AUDIO_INPUT_DIR, upload_file.filename)
+            with open(file_path, "wb") as buffer:
+                shutil.copyfileobj(upload_file.file, buffer)
+        except Exception:
+            return {"message": "There was an error uploading the file"}
+        finally:
+            upload_file.file.close()
+        return {"filename": upload_file.filename, "content_type": upload_file.content_type}

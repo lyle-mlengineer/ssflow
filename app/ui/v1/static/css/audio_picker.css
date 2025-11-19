@@ -18,6 +18,9 @@
     border-radius: 19px;
     background: var(--color-card);
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card {
@@ -31,6 +34,26 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.file-label {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #27ae60;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.file-label:hover {
+    background-color: #73ec10;
+}
+
+#upload{
+    display: none;
+}
+
+/*
 .app-title {
     color: #27ae60;
 }
@@ -39,27 +62,11 @@
     color: #333;
 }
 
-.file-label {
-    cursor: pointer;
-    display: flexbox;
-    padding: 7px;
-    background-color: #c834db;
-    color: #fff;
-    border-radius: 8px;
-    margin-bottom: 60px;
-    transition: background-color 0.3s;
-}
 
-.file-label:hover {
-    background-color: #73ec10;
-}
 
-.file-input {
-    display: none;
-}
 
 .progress-container {
     margin-top: 15px;
     position: relative;
     height: 20px;
-}
+} */

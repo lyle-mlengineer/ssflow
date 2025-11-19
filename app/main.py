@@ -15,6 +15,7 @@ app.include_router(audio_router, prefix="/api/v1/audio")
 
 app.mount("/static", StaticFiles(directory=config.STATIC_DIR), name="static")
 app.mount("/audio_output", StaticFiles(directory=config.AUDIO_OUTPUT_DIR), name="audio_output")
+app.mount("/audio_input", StaticFiles(directory=config.AUDIO_INPUT_DIR), name="audio_input")
 
 @app.get("/health", status_code=status.HTTP_200_OK)
 async def health_check():

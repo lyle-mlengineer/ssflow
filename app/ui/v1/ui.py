@@ -1,5 +1,5 @@
 from fastapi import Security, HTTPException, status
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Request, File, UploadFile
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from app.core.config import config
@@ -40,8 +40,8 @@ async def get_text_to_speech_page(request: Request):
             "default_voices": default_voices
         }
     )
-    
-@router.get('/pick_audio', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+
+@router.get('/audio_picker', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 async def pick_audio(request: Request):
     """Load the speech to text page"""
     return templates.TemplateResponse(
@@ -52,18 +52,26 @@ async def pick_audio(request: Request):
             "current_page": "stt"
         }
     )
-    
-@router.get('/speech_to_text', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
-async def get_speech_to_text_page(request: Request):
-    """Load the speech to text page"""
+
+@router.post('/speech_to_text')
+async def get_speech_to_text_page(
+    request: Request,
+    file: UploadFile = File(...),
+    service: AudioService = Depends(get_audio_service)
+):
+    result = service.save_uploaded_file(file)
+    audio_url: str = request.url_for("audio_input", path=result["filename"]).__str__()
+    print(audio_url)
     return templates.TemplateResponse(
         "speech_to_text.html", 
         {
             "request": request,
             "title": "SautiFlow STT",
-            "current_page": "stt"
+            "current_page": "stt",
+            "audio_url": audio_url
         }
     )
+    
 
 @router.get('/dashboard', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 async def get_dashboard_page(request: Request):

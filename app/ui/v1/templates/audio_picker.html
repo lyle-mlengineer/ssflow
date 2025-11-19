@@ -9,19 +9,21 @@
 
 <div class="gen-container">
 
-    <div class="card">
+    <form class="card" action="/speech_to_text" method="post" enctype="multipart/form-data">
         <label for="fileInput" class="file-label">
             <i class="fas fa-cloud-upload-alt"></i> 
-          Choose a file
+          Choose an Audio file
         </label>
-        <input type="file" id="fileInput" class="file-input" />
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-            <div class="progress-text" id="progressText"></div>
-        </div>
-    </div>
+        <input type="file" id="fileInput" class="file-input" hidden name="file" />
+        <button type="submit" class="file-label" id="upload">Upload</button>
+    </form>
 
 </div>
 
 
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }} {# This includes the JS from the parent's 'scripts' block #}
+    <script src="{{ url_for('static', path='js/audio_picker.js') }}"></script>
 {% endblock %}

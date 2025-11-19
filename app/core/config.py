@@ -12,6 +12,7 @@ class Config(BaseSettings):
     STATIC_DIR: str = "app/ui/v1/static"
     
     AUDIO_OUTPUT_DIR: str = "app/api/v1/audio_output"
+    AUDIO_INPUT_DIR: str = "app/api/v1/audio_input"
 
 
 config = Config()

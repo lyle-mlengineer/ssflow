@@ -30,9 +30,9 @@
 
                <!--Results-->
                <div class="audio-output">
-                  <audio src="audio/audio.mp3" controls></audio>
+                  <audio src="{{ audio_url }}" controls></audio>
                   <a href="#" class="change-audio-btn" change-audio>
-                     <button><i class="fa-solid fa-dice"></i> Change Audio</button>
+                     <button type="button" class="change-audio"><i class="fa-solid fa-dice"></i> Change Audio</button>
                      </a>
                </div>   
                
@@ -40,8 +40,8 @@
                <div class="prompt-actions">
 
                   <div class="select-wrapper">
-                     <select name="" id="" class="custom-select" required>
-                        <option value="" selected disabled>Language</option>
+                     <select name="" id="" class="custom-select">
+
                         <option value="swahili">Swahili</option>
                         <option value="english">English</option>
                         <option value="sheng">Sheng'</option>
@@ -73,4 +73,9 @@
     
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }} {# This includes the JS from the parent's 'scripts' block #}
+    <script src="{{ url_for('static', path='js/speech_to_text.js') }}"></script>
 {% endblock %}
