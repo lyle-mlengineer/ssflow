@@ -15,12 +15,12 @@ transcriptionForm.addEventListener('submit', (e) => {
     loader.classList.remove('hidden');
     promptOutput.classList.remove('visible');
 
-    const audioUrl = document.getElementById('audio').value;
+    const fileId = document.getElementById('fileid').value;
     const languageSelect = document.getElementById('language');
     const selectedLanguage = languageSelect.value;
 
     const payload = {
-        audio: audioUrl,
+        file_id: fileId,
         language: selectedLanguage
     };
 
@@ -34,7 +34,6 @@ transcriptionForm.addEventListener('submit', (e) => {
         .then(response => response.json())
         .then(data => {
             // Hide loading indicator
-            console.log('Transcription successful:', data);
             loader.classList.add('hidden');
             const textOutput = document.getElementById('text-output');
             textOutput.textContent = data.transcription;

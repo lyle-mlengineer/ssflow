@@ -59,7 +59,8 @@ async def get_speech_to_text_page(
     file: UploadFile = File(...),
     service: AudioService = Depends(get_audio_service)
 ):
-    result = service.save_uploaded_file(file)
+    result = service.save_upload_move_to_drive(file)
+    print(result)
     audio_url: str = request.url_for("audio_input", path=result["filename"]).__str__()
     print(audio_url)
     return templates.TemplateResponse(
@@ -68,7 +69,8 @@ async def get_speech_to_text_page(
             "request": request,
             "title": "SautiFlow STT",
             "current_page": "stt",
-            "audio_url": audio_url
+            "audio_url": audio_url,
+            "fileid": result["file_id"],
         }
     )
     

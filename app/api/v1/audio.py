@@ -7,7 +7,7 @@ from pydantic import BaseModel
 
 class SpeechTranscriptionRequest(BaseModel):
     language: str
-    audio: str
+    file_id: str
 
 
 router = APIRouter(
@@ -35,11 +35,8 @@ async def transcribe_speech(
     speech_request: SpeechTranscriptionRequest,
     service: AudioService = Depends(get_audio_service)
 ):
-    import time
-    time.sleep(2)  # Simulate processing delay
-    return {
-        "transcription": "This is a sample transcription of the provided audio."
-    }
+    response = service.transcribe_audio(speech_request.file_id)
+    return response
 
 
 @router.get('/languages')

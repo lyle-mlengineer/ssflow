@@ -6,3 +6,5 @@ psycopg2-binary
 pydantic-settings
 jinja2
 python-multipart
+oryks-google-drive
+requests

@@ -1,5 +1,6 @@
 from fastapi import FastAPI, status
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import config
 from app.core.logging import setup_logging
@@ -9,6 +10,13 @@ from app.api.v1.audio import router as audio_router
 
 setup_logging()
 app = FastAPI(title=config.APP_NAME, debug=config.DEBUG)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(ui.router)
 app.include_router(audio_router, prefix="/api/v1/audio")
