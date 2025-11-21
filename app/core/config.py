@@ -18,6 +18,7 @@ class Config(BaseSettings):
     GOOGLE_DRIVE_CREDENTIALS: str = "/home/lyle/.drive/credentials.json"
 
     TRANSCRIPTION_API_URL: str = "https://lyle-mlengineer--whisper-transcribe-openai-ssflowtra-90fddf-dev.modal.run"
+    SYNTHESIS_API_URL: str = "https://lyle-mlengineer--ssflow-synthesizer-ssflowsynthesize-896115-dev.modal.run/"
 
 
 config = Config()

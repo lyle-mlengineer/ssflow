@@ -22,9 +22,8 @@ async def generate_speech(
     request: Request,
     service: AudioService = Depends(get_audio_service)
 ):
-    import time
-    time.sleep(2)  # Simulate processing delay
-    audio_url: str = request.url_for("audio_output", path="GCsmZA08oD8.mp3").__str__()
+    file_name = service.generate_speech(text, language, voice)
+    audio_url: str = request.url_for("audio_output", path=file_name).__str__()
     return {
         "audio_url": audio_url
     }

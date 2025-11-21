@@ -16,8 +16,27 @@ class AudioService:
     def generate_speech(self, text: str, language: str, voice: str) -> str:
         """Generate speech audio from text using specified language and voice."""
         # Placeholder implementation
-        audio_path: str = os.path.join(config.AUDIO_OUTPUT_DIR, "raw", "GCsmZA08oD8", "GCsmZA08oD8.mp3")
-        return audio_path
+        payload = {
+            "text": text,
+            "target_voice": "woman1"
+        }
+
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer 123123"
+        }
+
+        response = requests.post(config.SYNTHESIS_API_URL, json=payload,
+                                headers=headers)
+        response.raise_for_status()
+        result = response.json()
+        print(result)
+        file_id: str = result.get("file_id", "")
+        file_name: str = f"{file_id}.wav"
+        file_path = os.path.join(config.AUDIO_OUTPUT_DIR, file_name)
+        print("Downloading audio to:", file_path)
+        self.download_audio(file_id, file_path)
+        return file_name
     
     def get_supported_languages(self) -> list:
         """Return a list of supported languages for text-to-speech."""
@@ -88,3 +107,10 @@ class AudioService:
         """Transcribe the audio file at the given path."""
         response = requests.post(config.TRANSCRIPTION_API_URL, json={"file_id": file_id})
         return response.json()
+
+    def download_audio(self, file_id: str, destination_path: str) -> None:
+        """Download an audio file from Google Drive to the specified destination path."""
+        try:
+            self.drive.download_file(file_id, destination_path)
+        except Exception as e:
+            raise RuntimeError(f"Failed to download file from Google Drive: {e}")
